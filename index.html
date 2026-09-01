@@ -895,8 +895,8 @@
     }
 
     .stage-card {
-      width: 190px;
-      height: 340px;
+      width: 168px;
+      height: 320px;
       border-radius: 20px;
       position: relative;
       flex-shrink: 0;
@@ -926,19 +926,18 @@
 
     .stage-card:hover { z-index: 10; }
 
-    .stage-card.s-left2  { transform: rotateY(22deg) translateX(52px) scale(0.83); z-index: 1; }
-    .stage-card.s-left1  { transform: rotateY(12deg) translateX(28px) scale(0.91); z-index: 2; }
-    .stage-card.s-center { transform: scale(1); z-index: 3; }
-    .stage-card.s-right1 { transform: rotateY(-12deg) translateX(-28px) scale(0.91); z-index: 2; }
-    .stage-card.s-right2 { transform: rotateY(-22deg) translateX(-52px) scale(0.83); z-index: 1; }
+    .stage-card.s-left3  { transform: rotateY(28deg) translateX(66px) scale(0.76); z-index: 1; }
+    .stage-card.s-left2  { transform: rotateY(20deg) translateX(46px) scale(0.84); z-index: 2; }
+    .stage-card.s-left1  { transform: rotateY(11deg) translateX(24px) scale(0.92); z-index: 3; }
+    .stage-card.s-center { transform: scale(1); z-index: 4; }
+    .stage-card.s-right1 { transform: rotateY(-11deg) translateX(-24px) scale(0.92); z-index: 3; }
+    .stage-card.s-right2 { transform: rotateY(-20deg) translateX(-46px) scale(0.84); z-index: 2; }
+    .stage-card.s-right3 { transform: rotateY(-28deg) translateX(-66px) scale(0.76); z-index: 1; }
 
-    .stage-card.s-left2:hover  { transform: rotateY(0) translateX(0) scale(0.97); }
-    .stage-card.s-left1:hover  { transform: rotateY(0) translateX(0) scale(0.97); }
-    .stage-card.s-right1:hover { transform: rotateY(0) translateX(0) scale(0.97); }
-    .stage-card.s-right2:hover { transform: rotateY(0) translateX(0) scale(0.97); }
+    .stage-card:not(.s-center):hover { transform: rotateY(0) translateX(0) scale(0.97); }
 
     /* stage-specific palette */
-    .stage-empathise {
+    .stage-discover {
       background: linear-gradient(155deg, #091d2a 0%, #0e3448 55%, #0b2534 100%);
       border: 1px solid rgba(10,180,200,0.22);
       box-shadow: 0 0 60px rgba(10,180,200,0.10), inset 0 1px 0 rgba(10,180,200,0.15), 0 32px 64px rgba(0,0,0,0.6);
@@ -953,6 +952,11 @@
       border: 1px solid rgba(120,72,216,0.28);
       box-shadow: 0 0 60px rgba(120,72,216,0.13), inset 0 1px 0 rgba(150,100,240,0.18), 0 32px 64px rgba(0,0,0,0.6);
     }
+    .stage-design {
+      background: linear-gradient(155deg, #071426 0%, #0b2850 48%, #103d70 100%);
+      border: 1px solid rgba(77,168,255,0.28);
+      box-shadow: 0 0 60px rgba(77,168,255,0.12), inset 0 1px 0 rgba(77,168,255,0.18), 0 32px 64px rgba(0,0,0,0.6);
+    }
     .stage-prototype {
       background: linear-gradient(155deg, #091d2a 0%, #0e3448 55%, #0b2534 100%);
       border: 1px solid rgba(10,180,200,0.18);
@@ -962,6 +966,11 @@
       background: linear-gradient(155deg, #180c04 0%, #2e1508 30%, #4a2410 65%, #3a1a08 100%);
       border: 1px solid rgba(196,104,48,0.18);
       box-shadow: 0 0 60px rgba(196,104,48,0.07), inset 0 1px 0 rgba(220,130,60,0.10), 0 32px 64px rgba(0,0,0,0.65);
+    }
+    .stage-deliver {
+      background: linear-gradient(155deg, #0c0820 0%, #180f3a 45%, #261450 100%);
+      border: 1px solid rgba(120,72,216,0.22);
+      box-shadow: 0 0 60px rgba(120,72,216,0.10), inset 0 1px 0 rgba(150,100,240,0.14), 0 32px 64px rgba(0,0,0,0.6);
     }
 
     .stage-num {
@@ -1447,17 +1456,17 @@
 
       <div class="cards-header fade-in">
         <div class="section-label">The Process</div>
-        <h2>Five stages.<br>One continuous loop.</h2>
+        <h2>Seven stages.<br>One continuous loop.</h2>
         <p>Design Loop structures your creative process from first insight to final validation — and back again.</p>
       </div>
 
-      <!-- 5 STAGE CARDS -->
+      <!-- 7 STAGE CARDS -->
       <div class="stage-track fade-in">
 
-        <!-- 01 Empathise — teal -->
-        <div class="stage-card stage-empathise s-left2" data-stage="empathise">
+        <!-- 01 Discover — teal -->
+        <div class="stage-card stage-discover s-left3" data-stage="discover">
           <div class="stage-num">01</div>
-          <div class="stage-name">Empathise</div>
+          <div class="stage-name">Discover</div>
           <div class="stage-art">
             <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -1487,7 +1496,7 @@
         </div>
 
         <!-- 02 Define — amber -->
-        <div class="stage-card stage-define s-left1" data-stage="define">
+        <div class="stage-card stage-define s-left2" data-stage="define">
           <div class="stage-num">02</div>
           <div class="stage-name">Define</div>
           <div class="stage-art">
@@ -1516,8 +1525,8 @@
           <span class="card-click-hint">Explore stage</span>
         </div>
 
-        <!-- 03 Ideate — violet (CENTER) -->
-        <div class="stage-card stage-ideate s-center" data-stage="ideate">
+        <!-- 03 Ideate — violet -->
+        <div class="stage-card stage-ideate s-left1" data-stage="ideate">
           <div class="stage-num">03</div>
           <div class="stage-name">Ideate</div>
           <div class="stage-art">
@@ -1550,9 +1559,33 @@
           <span class="card-click-hint">Explore stage</span>
         </div>
 
-        <!-- 04 Prototype — teal -->
-        <div class="stage-card stage-prototype s-right1" data-stage="prototype">
+        <!-- 04 Design — blue (CENTER) -->
+        <div class="stage-card stage-design s-center" data-stage="design">
           <div class="stage-num">04</div>
+          <div class="stage-name">Design</div>
+          <div class="stage-art">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="designg" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#4da8ff" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#4da8ff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect x="26" y="30" width="108" height="100" rx="8" stroke="rgba(77,168,255,0.22)"/>
+              <rect x="42" y="46" width="76" height="68" rx="5" stroke="rgba(77,168,255,0.34)"/>
+              <path d="M42 68H118M66 68V114" stroke="rgba(77,168,255,0.32)"/>
+              <circle cx="54" cy="57" r="3" fill="#4da8ff" opacity="0.8"/>
+              <circle cx="80" cy="80" r="25" fill="url(#designg)" opacity="0.35"/>
+              <circle cx="80" cy="80" r="2.2" fill="white"/>
+              <circle cx="80" cy="80" r="7" fill="white" opacity="0.14"/>
+            </svg>
+          </div>
+          <span class="card-click-hint">Explore stage</span>
+        </div>
+
+        <!-- 05 Prototype — teal -->
+        <div class="stage-card stage-prototype s-right1" data-stage="prototype">
+          <div class="stage-num">05</div>
           <div class="stage-name">Prototype</div>
           <div class="stage-art">
             <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1582,9 +1615,9 @@
           <span class="card-click-hint">Explore stage</span>
         </div>
 
-        <!-- 05 Test — amber -->
+        <!-- 06 Test — amber -->
         <div class="stage-card stage-test s-right2" data-stage="test">
-          <div class="stage-num">05</div>
+          <div class="stage-num">06</div>
           <div class="stage-name">Test</div>
           <div class="stage-art">
             <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1617,6 +1650,28 @@
           <span class="card-click-hint">Explore stage</span>
         </div>
 
+        <!-- 07 Deliver — violet -->
+        <div class="stage-card stage-deliver s-right3" data-stage="deliver">
+          <div class="stage-num">07</div>
+          <div class="stage-name">Deliver</div>
+          <div class="stage-art">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="deliverg" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#9b6fee" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#9b6fee" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <circle cx="80" cy="80" r="56" stroke="rgba(155,111,238,0.16)"/>
+              <circle cx="80" cy="80" r="40" stroke="rgba(155,111,238,0.24)"/>
+              <circle cx="80" cy="80" r="24" fill="url(#deliverg)" opacity="0.42"/>
+              <path d="M52 80H106M92 66L106 80L92 94" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="80" cy="80" r="2.2" fill="white"/>
+            </svg>
+          </div>
+          <span class="card-click-hint">Explore stage</span>
+        </div>
+
       </div><!-- /stage-track -->
 
       <!-- loop closure -->
@@ -1634,93 +1689,7 @@
         <p>Structured frameworks for each stage. Pick what fits, skip what doesn't. More being added continuously.</p>
       </div>
 
-      <div class="tools-grid fade-in">
-
-        <div class="tool-card">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#0ab4c8"></span>
-            Empathise
-          </div>
-          <div class="tool-name">Compete Bundle</div>
-          <div class="tool-desc">Competitive research templates to map the landscape before you design a single pixel.</div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#c46830"></span>
-            Define
-          </div>
-          <div class="tool-name">Content Audit</div>
-          <div class="tool-desc">Systematically evaluate existing content — gaps, tone, structure — before defining direction.</div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#7848d8"></span>
-            Ideate
-          </div>
-          <div class="tool-name">Ideation Framework</div>
-          <div class="tool-desc">Structured creative exercises to generate, filter, and prioritise ideas with your team.</div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#c46830"></span>
-            Test
-          </div>
-          <div class="tool-name">Usability Audit</div>
-          <div class="tool-desc">Step-by-step usability evaluation framework — heuristics, task flows, and scoring rubrics.</div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#c46830"></span>
-            Test
-          </div>
-          <div class="tool-name">Accessibility Audit</div>
-          <div class="tool-desc">WCAG-aligned checklists and audit templates to validate inclusive design at every level.</div>
-        </div>
-
-        <div class="tool-card">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#c46830"></span>
-            Test
-          </div>
-          <div class="tool-name">Security Audit</div>
-          <div class="tool-desc">Design-layer security review framework covering data exposure, trust signals, and permission flows.</div>
-        </div>
-
-        <div class="tool-card tool-card-soon">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#0ab4c8"></span>
-            Empathise
-          </div>
-          <div class="tool-name">User Interview Kit</div>
-          <div class="tool-desc">Coming soon</div>
-          <span class="tool-coming">Soon</span>
-        </div>
-
-        <div class="tool-card tool-card-soon">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#0ab4c8"></span>
-            Prototype
-          </div>
-          <div class="tool-name">Prototype Checklist</div>
-          <div class="tool-desc">Coming soon</div>
-          <span class="tool-coming">Soon</span>
-        </div>
-
-        <div class="tool-card tool-card-soon">
-          <div class="tool-stage-badge">
-            <span class="badge-dot" style="background:#7848d8"></span>
-            All Stages
-          </div>
-          <div class="tool-name">Your Framework</div>
-          <div class="tool-desc">Contribute yours to the loop</div>
-          <span class="tool-coming">Open</span>
-        </div>
-
-      </div><!-- /tools-grid -->
+      <div class="tools-grid fade-in" id="toolsGrid"></div>
 
     </div>
   </section>
@@ -1916,15 +1885,17 @@
   <script>
     // ── STAGE DIALOG DATA ──
     const stageData = {
-      empathise: {
-        num: '01 · Empathise',
-        name: 'Empathise',
+      discover: {
+        num: '01 · Discover',
+        name: 'Discover',
         accent: '#0ab4c8',
         accentRgb: '10,180,200',
-        desc: 'Step into your users\u2019 world. Empathy is the foundation of meaningful design \u2014 understanding not just what people do, but why they do it. This stage is about deep observation, active listening, and suspending every assumption you walked in with.',
+        desc: 'Build a grounded understanding of the opportunity, the market, and the people you are designing for before committing to a direction.',
         tools: [
-          { name: 'Compete Bundle', desc: 'Competitive research templates to map the landscape before you design a single pixel. Analyse competitors across UX, content, accessibility, and market positioning.', available: true },
-          { name: 'User Interview Kit', desc: 'Structured interview guides, note-taking templates, and synthesis frameworks to capture real user insights efficiently and without bias.', available: false }
+          { name: 'Research Brief', desc: 'Frame the research goals, audience, assumptions, methods, and expected outcomes.', available: true },
+          { name: 'Competitive Analysis', desc: 'Map the competitive landscape and identify patterns, gaps, and opportunities.', available: true },
+          { name: 'User Interviews', desc: 'Plan and conduct structured conversations that reveal user needs and behaviors.', available: true },
+          { name: 'Findings Synthesis', desc: 'Turn research evidence into themes, insights, and actionable opportunities.', available: true }
         ]
       },
       define: {
@@ -1932,9 +1903,12 @@
         name: 'Define',
         accent: '#c46830',
         accentRgb: '196,104,48',
-        desc: 'Synthesise what you\u2019ve learned and frame the real problem. A sharp problem statement is the difference between designing the right thing and designing the wrong thing well. This stage turns scattered research into a clear, shared direction.',
+        desc: 'Translate research into a clear problem, shared user model, and requirements that align the team around what needs to be solved.',
         tools: [
-          { name: 'Content Audit', desc: 'Systematically evaluate existing content \u2014 gaps, tone, structure, and hierarchy \u2014 before defining your creative direction. Ensures your design solves real content needs, not assumed ones.', available: true }
+          { name: 'Problem Statements', desc: 'Convert evidence into focused, actionable problem statements.', available: true },
+          { name: 'User Personas', desc: 'Create evidence-based user profiles that guide product decisions.', available: true },
+          { name: 'Journey Map', desc: 'Visualize the end-to-end user experience, needs, and pain points.', available: true },
+          { name: 'PRD / Requirements', desc: 'Document the product goals, scope, constraints, and success criteria.', available: true }
         ]
       },
       ideate: {
@@ -1942,34 +1916,81 @@
         name: 'Ideate',
         accent: '#7848d8',
         accentRgb: '120,72,216',
-        desc: 'Quantity before quality. This is the stage where constraints loosen and possibilities multiply. The best ideas rarely arrive first \u2014 ideation frameworks help you push past the obvious into territory that\u2019s genuinely original and worth pursuing.',
+        desc: 'Explore multiple ways to solve the defined problem, evaluate the strongest concepts, and record why the team chose a direction.',
         tools: [
-          { name: 'Ideation Framework', desc: 'Structured creative exercises \u2014 from \u201cHow Might We\u201d sessions to SCAMPER and Crazy 8s \u2014 to generate, cluster, and prioritise ideas with your team before committing to a direction.', available: true }
+          { name: 'HMW Reframing', desc: 'Turn problems and insights into generative How Might We prompts.', available: true },
+          { name: 'Concept Brainstorm', desc: 'Generate a broad set of solution concepts around the opportunity.', available: true },
+          { name: 'Concept Evaluation', desc: 'Compare concepts against user value, feasibility, and product goals.', available: true },
+          { name: 'Decision Log', desc: 'Capture key choices, alternatives, evidence, and tradeoffs.', available: true }
+        ]
+      },
+      design: {
+        num: '04 · Design',
+        name: 'Design',
+        accent: '#4da8ff',
+        accentRgb: '77,168,255',
+        desc: 'Shape the selected concept into a coherent interface system with clear structure, reusable foundations, and implementation-ready specifications.',
+        tools: [
+          { name: 'Wireframe Spec', desc: 'Define page structure, hierarchy, content, and interaction intent.', available: true },
+          { name: 'Design Tokens', desc: 'Establish reusable visual decisions for color, type, spacing, and motion.', available: true },
+          { name: 'Component Specs', desc: 'Document component anatomy, states, variants, and behavior.', available: true },
+          { name: 'Design System', desc: 'Organize shared patterns and components into a scalable system.', available: true }
         ]
       },
       prototype: {
-        num: '04 · Prototype',
+        num: '05 · Prototype',
         name: 'Prototype',
         accent: '#0ab4c8',
         accentRgb: '10,180,200',
-        desc: 'Make ideas tangible. Prototypes are questions made visible. The fidelity should match the question \u2014 rough sketches to validate concepts, high-fidelity flows to pressure-test details. Build only what you need to learn what you need to know.',
+        desc: 'Make the design tangible in working components and realistic flows, then verify that the implementation matches the intended experience.',
         tools: [
-          { name: 'Prototype Checklist', desc: 'Pre-flight checklist for prototypes before user testing \u2014 covering fidelity decisions, interaction coverage, edge cases, and scenario setup to ensure your test surfaces real signal.', available: false }
+          { name: 'Component Impl.', desc: 'Build the reusable interface components defined by the design specifications.', available: true },
+          { name: 'Demo Pages', desc: 'Assemble components into realistic pages and end-to-end scenarios.', available: true },
+          { name: 'Storybook Stories', desc: 'Document component variants, states, and usage through interactive stories.', available: true },
+          { name: 'Visual Verification', desc: 'Compare the implementation against design intent and identify visual drift.', available: true }
         ]
       },
       test: {
-        num: '05 · Test',
+        num: '06 · Test',
         name: 'Test',
         accent: '#c46830',
         accentRgb: '196,104,48',
-        desc: 'Put your work in front of real people and listen without defending. Testing is not about proving your design works \u2014 it\u2019s about learning where it doesn\u2019t. Every finding is an opportunity to loop back sharper, smarter, and closer to the truth.',
+        desc: 'Evaluate the experience against design principles, accessibility needs, usability goals, and real user behavior.',
         tools: [
-          { name: 'Usability Audit', desc: 'Step-by-step usability evaluation framework \u2014 heuristics, task flows, and scoring rubrics to systematically identify friction before your users do.', available: true },
-          { name: 'Accessibility Audit', desc: 'WCAG-aligned checklists and audit templates to validate inclusive design at every level \u2014 from colour contrast ratios to screen reader flows and keyboard navigation.', available: true },
-          { name: 'Security Audit', desc: 'Design-layer security review framework covering data exposure, trust signals, permission flows, and sensitive UI patterns that impact user safety and trust.', available: true }
+          { name: 'Tenets & Traps Eval', desc: 'Review the experience against product tenets and known design traps.', available: true },
+          { name: 'Accessibility Audit', desc: 'Evaluate inclusive behavior against accessibility standards and user needs.', available: true },
+          { name: 'Usability Test Plan', desc: 'Define participants, tasks, methods, measures, and learning goals.', available: true },
+          { name: 'Test Execution', desc: 'Run the study, capture observations, and synthesize actionable findings.', available: true }
+        ]
+      },
+      deliver: {
+        num: '07 · Deliver',
+        name: 'Deliver',
+        accent: '#9b6fee',
+        accentRgb: '155,111,238',
+        desc: 'Package the final decisions, implementation guidance, component contracts, and change history for a clear engineering handoff.',
+        tools: [
+          { name: 'Implementation Guide', desc: 'Explain how the experience should be built, integrated, and maintained.', available: true },
+          { name: 'Component API Reference', desc: 'Document component properties, events, states, and integration contracts.', available: true },
+          { name: 'Design-Eng Changelog', desc: 'Track decisions and changes shared between design and engineering.', available: true },
+          { name: 'Handoff Checklist', desc: 'Confirm that specifications, assets, states, and acceptance criteria are ready.', available: true }
         ]
       }
     };
+
+    const toolsGrid = document.getElementById('toolsGrid');
+    toolsGrid.innerHTML = Object.values(stageData).flatMap(stage =>
+      stage.tools.filter(tool => tool.available).map(tool => `
+        <div class="tool-card">
+          <div class="tool-stage-badge">
+            <span class="badge-dot" style="background:${stage.accent}"></span>
+            ${stage.name}
+          </div>
+          <div class="tool-name">${tool.name}</div>
+          <div class="tool-desc">${tool.desc}</div>
+        </div>
+      `)
+    ).join('');
 
     // ── DIALOG LOGIC ──
     const overlay   = document.getElementById('stageDialog');
