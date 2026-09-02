@@ -967,6 +967,69 @@
       line-height: 1.65;
     }
 
+    .contributors {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-top: 34px;
+      padding: 24px 4px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .contributors-label {
+      flex: 0 0 auto;
+      color: var(--text-muted);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .contributors-list {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: clamp(14px, 2.4vw, 32px);
+      width: 100%;
+      list-style: none;
+    }
+
+    .contributor {
+      min-width: 0;
+    }
+
+    .contributor img {
+      display: block;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 9px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 17px;
+      object-fit: cover;
+      filter: grayscale(0.72);
+      opacity: 0.72;
+      transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .contributor:hover img {
+      filter: grayscale(0);
+      opacity: 1;
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .contributor-name {
+      display: block;
+      color: rgba(240,237,232,0.42);
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1.35;
+      transition: color 0.2s ease;
+    }
+
+    .contributor:hover .contributor-name {
+      color: rgba(240,237,232,0.72);
+    }
+
     .flow {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1637,6 +1700,8 @@
       .tools-grid { grid-template-columns: 1fr; }
       .tool-card:nth-child(n) { border-radius: 0; }
       .tool-card:first-child { border-radius: 12px 12px 0 0; }
+      .contributors { align-items: flex-start; gap: 18px; }
+      .contributors-list { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 20px; }
       .stage-card { width: 160px; height: 280px; padding: 18px 16px; }
       .stage-name { font-size: 13px; }
     }
@@ -2223,6 +2288,36 @@
         <span class="cmd">git</span> commit <span class="flag">-m</span> <span class="str">"feat: describe what you built"</span><br><br>
         <span class="comment"># push to remote for review</span><br>
         <span class="cmd">git</span> push origin <span class="str">feature/your-feature-name</span>
+      </div>
+
+      <div class="contributors fade-in" aria-labelledby="contributorsLabel">
+        <div class="contributors-label" id="contributorsLabel">Contributors</div>
+        <ul class="contributors-list">
+          <li class="contributor">
+            <img src="assets/amrita.jpg" alt="" loading="lazy">
+            <span class="contributor-name">Amrita Walia</span>
+          </li>
+          <li class="contributor">
+            <img src="assets/saket.jpg" alt="" loading="lazy">
+            <span class="contributor-name">Saket Belchandan</span>
+          </li>
+          <li class="contributor">
+            <img src="assets/sumit.jpg" alt="" loading="lazy">
+            <span class="contributor-name">Sumit Narainsingh Saini</span>
+          </li>
+          <li class="contributor">
+            <img src="assets/somya.jpg" alt="" loading="lazy">
+            <span class="contributor-name">Somya Jain</span>
+          </li>
+          <li class="contributor">
+            <img src="assets/ridhi.jpg" alt="" loading="lazy">
+            <span class="contributor-name">Ridhi Jain</span>
+          </li>
+          <li class="contributor">
+            <img src="assets/yashwant.jpg" alt="" loading="lazy">
+            <span class="contributor-name">Yashwant Rawat</span>
+          </li>
+        </ul>
       </div>
 
     </div>
