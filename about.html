@@ -291,12 +291,32 @@
       content: '';
       position: absolute;
       inset: 0;
+      z-index: 1;
       pointer-events: none;
       background:
         linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+    }
+
+    .product-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #0d0d0d;
+    }
+
+    .product-video-fallback {
+      display: grid;
+      height: 100%;
+      place-items: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-align: center;
     }
 
     .frame-bar {
@@ -367,6 +387,74 @@
     .scene-button svg {
       width: 16px;
       height: 16px;
+    }
+
+    .narration-control {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      z-index: 120;
+      display: inline-flex;
+      min-width: 108px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 15px;
+      transform: translateX(-50%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(17,17,17,0.84);
+      color: var(--text-muted);
+      font: inherit;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: color 180ms, background 180ms, border-color 180ms;
+    }
+
+    .narration-control:hover,
+    .narration-control.is-enabled {
+      border-color: rgba(22,131,255,0.34);
+      background: rgba(22,131,255,0.1);
+      color: var(--text);
+    }
+
+    .narration-control:focus-visible,
+    .scene-button:focus-visible,
+    .progress-dot:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    .narration-icon {
+      position: relative;
+      display: grid;
+      width: 16px;
+      height: 16px;
+      place-items: center;
+    }
+
+    .narration-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .narration-control.is-speaking .narration-icon::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 1px solid rgba(22,131,255,0.48);
+      border-radius: 50%;
+      animation: narrationPulse 1.6s ease-out infinite;
+    }
+
+    @keyframes narrationPulse {
+      0% { opacity: 0.72; transform: scale(0.7); }
+      80%, 100% { opacity: 0; transform: scale(1.35); }
     }
 
     .scene-progress {
@@ -1403,6 +1491,7 @@
 
       .scene-progress { left: 22px; bottom: 25px; }
       .scene-nav { right: 22px; bottom: 20px; }
+      .narration-control { bottom: 20px; }
     }
 
     @media (max-width: 560px) {
@@ -1492,6 +1581,12 @@
       .closing-loop { display: none; }
       .progress-dots { display: none; }
       .scene-button { width: 40px; height: 40px; }
+      .narration-control {
+        min-width: 98px;
+        height: 40px;
+        padding: 0 12px;
+        font-size: 9px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1518,6 +1613,7 @@
       }
 
       .selection-box { opacity: 1; }
+      .narration-control.is-speaking .narration-icon::before { display: none; }
     }
   </style>
 </head>
@@ -1547,25 +1643,12 @@
         </ul>
       </div>
 
-      <div class="scene-proof" role="img" aria-label="Discover, Define, Ideate, Design, Prototype, Test, and Deliver connected in one continuous DesignLoop lifecycle.">
+      <div class="scene-proof">
         <div class="proof-frame">
-          <div class="frame-bar">
-            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-            <span class="frame-label">Connected lifecycle</span>
-          </div>
-          <div class="lifecycle">
-            <div class="loop-orbit">
-              <span class="loop-node">Discover</span>
-              <span class="loop-node">Define</span>
-              <span class="loop-node">Ideate</span>
-              <span class="loop-node">Design</span>
-              <span class="loop-node">Prototype</span>
-              <span class="loop-node">Test</span>
-              <span class="loop-node">Deliver</span>
-              <span class="orbit-runner"></span>
-              <span class="loop-core"><img src="designloop-logo.svg" alt="" /></span>
-            </div>
-          </div>
+          <video class="product-video" muted playsinline loop preload="metadata" poster="assets/about/vision.jpg" aria-label="The Azure Resiliency project, its DesignLoop task, and the working prototype connected in one workflow.">
+            <source src="assets/about/vision.webm" type="video/webm" />
+            <span class="product-video-fallback">Your browser does not support the DesignLoop product recording.</span>
+          </video>
         </div>
       </div>
     </section>
@@ -1583,39 +1666,12 @@
         </ul>
       </div>
 
-      <div class="scene-proof" role="img" aria-label="Project sources being attached to a DesignLoop task as persistent context.">
+      <div class="scene-proof">
         <div class="proof-frame">
-          <div class="frame-bar">
-            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-            <span class="frame-label">Project / Nova workspace</span>
-          </div>
-          <div class="context-layout">
-            <div class="context-sidebar">
-              <div class="panel-title">Project context <span class="panel-add">+</span></div>
-              <div class="context-list">
-                <div class="context-item"><span class="context-icon">FI</span><span class="context-name">Nova checkout.fig</span></div>
-                <div class="context-item"><span class="context-icon">DO</span><span class="context-name">Research synthesis.docx</span></div>
-                <div class="context-item"><span class="context-icon">WI</span><span class="context-name">Planning review</span></div>
-                <div class="context-item"><span class="context-icon">WE</span><span class="context-name">Competitive references</span></div>
-              </div>
-            </div>
-            <div class="task-panel">
-              <div class="panel-title">Design task <span>Ready</span></div>
-              <div class="task-body">
-                <div class="task-kicker">Define / Journey map</div>
-                <div class="task-title">Map the checkout experience for returning customers.</div>
-                <div class="context-available">
-                  <div class="context-available-label">Available to this task</div>
-                  <div class="mini-sources">
-                    <span class="mini-source">Figma</span>
-                    <span class="mini-source">Research</span>
-                    <span class="mini-source">Meeting</span>
-                    <span class="mini-source">Web</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <video class="product-video" muted playsinline loop preload="metadata" poster="assets/about/context.jpg" aria-label="Shared Azure Resiliency project context and sources being prepared for related DesignLoop tasks.">
+            <source src="assets/about/context.webm" type="video/webm" />
+            <span class="product-video-fallback">Your browser does not support the DesignLoop product recording.</span>
+          </video>
         </div>
       </div>
     </section>
@@ -1633,42 +1689,12 @@
         </ul>
       </div>
 
-      <div class="scene-proof" role="img" aria-label="A stage task flowing through a specialized agent and verifier into an accepted artifact.">
+      <div class="scene-proof">
         <div class="proof-frame">
-          <div class="frame-bar">
-            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-            <span class="frame-label">Define stage / Journey map</span>
-          </div>
-          <div class="agent-canvas">
-            <div class="agent-flow">
-              <div class="flow-node">
-                <div class="flow-node-step">01 / Ready</div>
-                <div class="flow-node-icon">T</div>
-                <div class="flow-node-name">Stage task</div>
-                <div class="flow-node-status">Context attached</div>
-              </div>
-              <div class="flow-node">
-                <div class="flow-node-step">02 / Running</div>
-                <div class="flow-node-icon">A</div>
-                <div class="flow-node-name">Journey agent</div>
-                <div class="flow-node-status">Synthesizing</div>
-              </div>
-              <div class="flow-node">
-                <div class="flow-node-step">03 / Check</div>
-                <div class="flow-node-icon">V</div>
-                <div class="flow-node-name">Verifier</div>
-                <div class="flow-node-status">Evidence + quality</div>
-              </div>
-              <div class="flow-node">
-                <div class="flow-node-step">04 / Accepted</div>
-                <div class="flow-node-icon">✓</div>
-                <div class="flow-node-name">Journey artifact</div>
-                <div class="flow-node-status">Ready to use</div>
-              </div>
-              <span class="flow-signal"></span>
-              <span class="verification-loop"></span>
-            </div>
-          </div>
+          <video class="product-video" muted playsinline loop preload="metadata" poster="assets/about/loops.jpg" aria-label="The Azure Resiliency task process timeline and report card showing execution and verification status.">
+            <source src="assets/about/loops.webm" type="video/webm" />
+            <span class="product-video-fallback">Your browser does not support the DesignLoop product recording.</span>
+          </video>
         </div>
       </div>
     </section>
@@ -1687,31 +1713,12 @@
         </ul>
       </div>
 
-      <div class="scene-proof" role="img" aria-label="An AI task paused for designer approval and model selection before continuing.">
+      <div class="scene-proof">
         <div class="proof-frame">
-          <div class="frame-bar">
-            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-            <span class="frame-label">Human-in-the-loop checkpoint</span>
-          </div>
-          <div class="control-canvas">
-            <div class="approval-card">
-              <div class="approval-state">Waiting for your direction</div>
-              <div class="approval-title">Continue from journey findings into concept generation?</div>
-              <p class="approval-copy">The agent will use the accepted journey map and prioritize the three highest-impact opportunity areas.</p>
-              <div class="model-row">
-                <span class="model-label">Model for this step</span>
-                <span class="model-choice">Selected reasoning model ▾</span>
-              </div>
-              <div class="approval-actions">
-                <span class="mock-button">Adjust</span>
-                <span class="mock-button primary">Approve &amp; continue</span>
-              </div>
-              <svg class="approval-cursor" viewBox="0 0 18 24" aria-hidden="true">
-                <path d="M1 1L16 14H9.7L7 22L3.5 20.5L6.2 13L1 16V1Z" fill="white" stroke="#151515" stroke-width="1.2"/>
-              </svg>
-            </div>
-            <div class="resume-line"></div>
-          </div>
+          <video class="product-video" muted playsinline loop preload="metadata" poster="assets/about/control.jpg" aria-label="The Azure Resiliency task composer with model selection, Human in the Loop, and guided run controls.">
+            <source src="assets/about/control.webm" type="video/webm" />
+            <span class="product-video-fallback">Your browser does not support the DesignLoop product recording.</span>
+          </video>
         </div>
       </div>
     </section>
@@ -1729,35 +1736,12 @@
         </ul>
       </div>
 
-      <div class="scene-proof" role="img" aria-label="A targeted call-to-action change creating a reversible new prototype version.">
+      <div class="scene-proof">
         <div class="proof-frame">
-          <div class="frame-bar">
-            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-            <span class="frame-label">Prototype / Nova checkout</span>
-          </div>
-          <div class="prototype-shell">
-            <div class="prototype-toolbar">
-              <span class="prototype-version">Version 3</span>
-              <span class="prototype-tools">
-                <span class="prototype-tool active">Point &amp; Change</span>
-                <span class="prototype-tool">History</span>
-                <span class="prototype-tool">Figma</span>
-              </span>
-            </div>
-            <div class="prototype-page">
-              <div class="prototype-copy">
-                <div class="prototype-overline">Faster checkout</div>
-                <div class="prototype-heading">Everything you need. Nothing you don't.</div>
-                <div class="prototype-sub">A focused experience shaped around returning customers.</div>
-                <div class="prototype-cta">
-                  Continue securely
-                  <span class="selection-box"></span>
-                </div>
-              </div>
-              <div class="prototype-visual"></div>
-            </div>
-            <div class="version-toast">Version 4 created · Revert available</div>
-          </div>
+          <video class="product-video" muted playsinline loop preload="metadata" poster="assets/about/prototype.jpg" aria-label="Point and Change targeting the Create action in the Azure Resiliency Automation Platform prototype.">
+            <source src="assets/about/prototype.webm" type="video/webm" />
+            <span class="product-video-fallback">Your browser does not support the DesignLoop product recording.</span>
+          </video>
         </div>
       </div>
     </section>
@@ -1777,36 +1761,12 @@
         </ul>
       </div>
 
-      <div class="scene-proof" role="img" aria-label="A local prototype published live, reviewed through comments, and evaluated with a quality report card.">
+      <div class="scene-proof">
         <div class="proof-frame">
-          <div class="frame-bar">
-            <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-            <span class="frame-label">ProtoLoop / Live review</span>
-          </div>
-          <div class="live-canvas">
-            <div class="live-preview">
-              <span class="live-badge">Live</span>
-              <div class="publish-state">
-                <div class="publish-mark">↗</div>
-                <div class="publish-label">Nova checkout is reviewable</div>
-                <div class="publish-url">protoloop.design/nova/v4</div>
-              </div>
-            </div>
-            <div class="review-rail">
-              <div class="review-title">Review activity</div>
-              <div class="comment">
-                <div class="comment-author">Maya · Product</div>
-                <div class="comment-copy"><span class="mention">@Alex</span> the new CTA makes the next step much clearer.</div>
-              </div>
-              <div class="report-card">
-                <div class="report-label">Prototype report card</div>
-                <div class="report-score"><strong>92</strong><span>Ready to share</span></div>
-              </div>
-            </div>
-            <div class="closing-loop" aria-hidden="true">
-              <span>Context</span><span>Create</span><span>Iterate</span><span>Validate</span><span>Collaborate</span><span>Deliver ↺</span>
-            </div>
-          </div>
+          <video class="product-video" muted playsinline loop preload="metadata" poster="assets/about/protoloop.jpg" aria-label="ProtoLoop feedback anchored directly to the Azure Resiliency Automation Platform prototype.">
+            <source src="assets/about/protoloop.webm" type="video/webm" />
+            <span class="product-video-fallback">Your browser does not support the DesignLoop product recording.</span>
+          </video>
         </div>
       </div>
     </section>
@@ -1817,6 +1777,17 @@
     <div class="progress-dots" id="progressDots"></div>
     <span class="keyboard-hint">Use arrow keys</span>
   </div>
+
+  <button class="narration-control" id="narrationControl" type="button" aria-label="Listen to this section" aria-pressed="false">
+    <span class="narration-icon" aria-hidden="true">
+      <svg class="listen-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h3l4-3v10l-4-3H4z"/>
+        <path d="M14 7.2a4 4 0 0 1 0 5.6"/>
+        <path d="M16.3 5a7 7 0 0 1 0 10"/>
+      </svg>
+    </span>
+    <span id="narrationLabel">Listen</span>
+  </button>
 
   <div class="scene-nav">
     <button class="scene-button" id="previousScene" type="button" aria-label="Previous scene" disabled>
@@ -1837,12 +1808,47 @@
     const nextButton = document.getElementById('nextScene');
     const counter = document.getElementById('sceneCounter');
     const dotsContainer = document.getElementById('progressDots');
+    const narrationButton = document.getElementById('narrationControl');
+    const narrationLabel = document.getElementById('narrationLabel');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sceneIds = scenes.map(scene => scene.dataset.scene);
+    const narrationScenes = {
+      vision: {
+        text: 'Artificial intelligence can generate more design output, faster. DesignLoop connects that intelligence across the entire journey, from project context to a working prototype, as one continuous design loop.',
+        audio: 'assets/about/audio/01-designloop.wav'
+      },
+      context: {
+        text: 'DesignLoop does not begin with a blank prompt. It starts with the knowledge around the project, bringing research, documents, design files, web resources, and organizational context into the work.',
+        audio: 'assets/about/audio/02-context.wav'
+      },
+      loops: {
+        text: 'Work moves through focused stages and specialized agents instead of one oversized prompt. Each loop can execute, check its evidence, and iterate before the result moves forward.',
+        audio: 'assets/about/audio/03-intelligent-loops.wav'
+      },
+      control: {
+        text: 'The designer decides how much autonomy artificial intelligence receives. You can choose the model, pause at human checkpoints, focus on a specific stage, or bring your own skills and agents.',
+        audio: 'assets/about/audio/04-designer-control.wav'
+      },
+      prototype: {
+        text: 'A generated prototype is a beginning, not an endpoint. Designers can point to a specific element, request a targeted change, create versions, revisit decisions, and keep the artifact moving forward.',
+        audio: 'assets/about/audio/05-living-prototype.wav'
+      },
+      protoloop: {
+        text: 'ProtoLoop keeps the journey connected after creation. A local prototype can move into live review, gather feedback where it matters, receive quality checks, and be shared securely with stakeholders.',
+        audio: 'assets/about/audio/06-protoloop.wav'
+      }
+    };
+    const narrationAudio = new Audio();
+    narrationAudio.preload = 'metadata';
     let activeIndex = Math.max(0, sceneIds.indexOf(window.location.hash.slice(1)));
     let transitioning = false;
     let touchStartX = 0;
     let touchStartY = 0;
+    let narrationEnabled = false;
+    let isSpeaking = false;
+    let narrationToken = 0;
+    let narrationTimer = 0;
+    let speechUtterance = null;
 
     const dots = scenes.map((scene, index) => {
       const dot = document.createElement('button');
@@ -1859,10 +1865,101 @@
       if ('inert' in scene) scene.inert = !isActive;
     }
 
+    function setSceneMedia(scene, isActive) {
+      const video = scene.querySelector('.product-video');
+      if (!video) return;
+
+      video.pause();
+      if (prefersReducedMotion.matches) {
+        video.load();
+        return;
+      }
+
+      if (!isActive) {
+        if (video.readyState >= HTMLMediaElement.HAVE_METADATA) video.currentTime = 0;
+        return;
+      }
+
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+
+    function updateNarrationControl() {
+      narrationButton.classList.toggle('is-enabled', narrationEnabled);
+      narrationButton.classList.toggle('is-speaking', isSpeaking);
+      narrationButton.setAttribute('aria-pressed', String(narrationEnabled));
+      narrationButton.setAttribute('aria-label', narrationEnabled ? 'Stop narration' : 'Listen to this section');
+      narrationLabel.textContent = narrationEnabled ? 'Stop' : 'Listen';
+    }
+
+    function cancelNarrationPlayback(disableMode = false) {
+      narrationToken += 1;
+      window.clearTimeout(narrationTimer);
+      narrationTimer = 0;
+      narrationAudio.pause();
+      narrationAudio.onended = null;
+      narrationAudio.onerror = null;
+      narrationAudio.removeAttribute('src');
+      narrationAudio.load();
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      speechUtterance = null;
+      isSpeaking = false;
+      if (disableMode) narrationEnabled = false;
+      updateNarrationControl();
+    }
+
+    function finishNarration(token) {
+      if (token !== narrationToken) return;
+      isSpeaking = false;
+      speechUtterance = null;
+      updateNarrationControl();
+    }
+
+    function startSpeechFallback(sceneNarration, token) {
+      if (token !== narrationToken || !narrationEnabled || !('speechSynthesis' in window)) {
+        finishNarration(token);
+        return;
+      }
+      if (speechUtterance) return;
+
+      speechUtterance = new SpeechSynthesisUtterance(sceneNarration.text);
+      speechUtterance.rate = 0.96;
+      speechUtterance.pitch = 1;
+      speechUtterance.onend = () => finishNarration(token);
+      speechUtterance.onerror = () => finishNarration(token);
+      window.speechSynthesis.speak(speechUtterance);
+    }
+
+    function startNarration(index = activeIndex) {
+      const sceneNarration = narrationScenes[sceneIds[index]];
+      if (!sceneNarration || !narrationEnabled) return;
+
+      cancelNarrationPlayback(false);
+      narrationEnabled = true;
+      const token = narrationToken;
+      isSpeaking = true;
+      updateNarrationControl();
+      setSceneMedia(scenes[index], true);
+
+      narrationAudio.src = sceneNarration.audio;
+      narrationAudio.currentTime = 0;
+      narrationAudio.onended = () => finishNarration(token);
+      narrationAudio.onerror = () => startSpeechFallback(sceneNarration, token);
+      narrationAudio.play().catch(() => startSpeechFallback(sceneNarration, token));
+    }
+
+    function scheduleNarration(index) {
+      const delay = prefersReducedMotion.matches ? 140 : 720;
+      window.clearTimeout(narrationTimer);
+      narrationTimer = window.setTimeout(() => startNarration(index), delay);
+    }
+
     function showScene(nextIndex, updateHash = true) {
       if (transitioning || nextIndex === activeIndex || nextIndex < 0 || nextIndex >= scenes.length) return;
 
       transitioning = true;
+      const continueNarration = narrationEnabled;
+      if (continueNarration) cancelNarrationPlayback(false);
       const currentScene = scenes[activeIndex];
       const nextScene = scenes[nextIndex];
       const movingForward = nextIndex > activeIndex;
@@ -1870,6 +1967,7 @@
       currentScene.classList.toggle('exit-left', movingForward);
       currentScene.classList.remove('active');
       setSceneAccessibility(currentScene, false);
+      setSceneMedia(currentScene, false);
 
       nextScene.classList.remove('exit-left');
       nextScene.style.transform = movingForward ? 'translateX(8%) scale(0.985)' : 'translateX(-8%) scale(0.985)';
@@ -1881,6 +1979,8 @@
       activeIndex = nextIndex;
       updateControls();
       setSceneAccessibility(nextScene, true);
+      setSceneMedia(nextScene, true);
+      if (continueNarration) scheduleNarration(nextIndex);
 
       if (updateHash) {
         history.replaceState(null, '', `#${sceneIds[activeIndex]}`);
@@ -1910,6 +2010,7 @@
         const isActive = index === activeIndex;
         scene.classList.toggle('active', isActive);
         setSceneAccessibility(scene, isActive);
+        setSceneMedia(scene, isActive);
       });
       updateControls();
       if (!window.location.hash) history.replaceState(null, '', `#${sceneIds[activeIndex]}`);
@@ -1917,9 +2018,20 @@
 
     previousButton.addEventListener('click', () => showScene(activeIndex - 1));
     nextButton.addEventListener('click', () => showScene(activeIndex + 1));
+    narrationButton.addEventListener('click', () => {
+      if (narrationEnabled) {
+        cancelNarrationPlayback(true);
+        return;
+      }
+
+      narrationEnabled = true;
+      startNarration(activeIndex);
+    });
 
     document.addEventListener('keydown', event => {
       if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.target.closest('input, textarea, select')) return;
+      if (event.key === ' ' && event.target.closest('button, a')) return;
       if (event.key === 'ArrowRight' || event.key === ' ') {
         event.preventDefault();
         showScene(activeIndex + 1);
@@ -1948,7 +2060,14 @@
       showScene(activeIndex + (deltaX < 0 ? 1 : -1));
     }, { passive: true });
 
+    prefersReducedMotion.addEventListener('change', () => {
+      scenes.forEach((scene, index) => setSceneMedia(scene, index === activeIndex));
+    });
+
+    window.addEventListener('pagehide', () => cancelNarrationPlayback(true));
+
     initializeScene();
+    updateNarrationControl();
   </script>
 </body>
 </html>
